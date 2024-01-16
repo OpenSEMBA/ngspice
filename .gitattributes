@@ -4,3 +4,7 @@
 *.vcproj   -text
 *.sln      -text
 *.vcxproj  -text
+
+*.sh     -crlf
+*.ac     -crlf
+*.am     -crlf
