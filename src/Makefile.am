@@ -631,9 +631,9 @@ libngspice_la_LIBADD += \
     maths/dense/libdense.la
 endif
 
-libngspice_la_CFLAGS = -shared
+libngspice_la_CFLAGS = -static
 
-libngspice_la_LDFLAGS =  -shared
+libngspice_la_LDFLAGS =  -static
 libngspice_la_LDFLAGS +=  -lstdc++
 
 if SHWIN

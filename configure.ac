@@ -478,7 +478,7 @@ if test "x$with_ngshared" != x  &&  test "x$with_ngshared" != xno ; then
     with_x=no
     with_windows=no
 
-    AC_SUBST([STATIC], [-shared])
+    AC_SUBST([STATIC], [-static])
 
     TCL_PACKAGE_PATH=""
     TCL_LIB_SPEC=""
