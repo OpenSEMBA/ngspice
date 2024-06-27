@@ -33,6 +33,7 @@ Author: 1985 Wayne A. Christopher, U. C. Berkeley CAD Group
 #define DBC_LT    4   /* <  (lt) */
 #define DBC_GTE  5   /* >= (ge) */
 #define DBC_LTE  6   /* <= (le) */
+#define DBC_MOD  7   /* fmod (mod) */
 
 /* Below, members db_op and db_value1 are re-purposed by iplot options. */
 

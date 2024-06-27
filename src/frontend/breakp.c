@@ -25,7 +25,7 @@ static void printcond(struct dbcomm *d, FILE *fp);
 static int howmanysteps = 0;
 static int steps = 0;
 static bool interpolated = FALSE;
-
+static double last_rem = 0;
 
 /* Set a breakpoint. Possible commands are:
  *  stop after n
@@ -86,6 +86,7 @@ com_stop(wordlist *wl)
             d->db_iteration = i;
             wl = wl->wl_next->wl_next;
         } else if (eq(wl->wl_word, "when") && wl->wl_next) {
+
             /* cp_lexer(string) will not discriminate '=', so we have
                to do it here */
             if (strchr(wl->wl_next->wl_word, '=') &&
@@ -126,11 +127,13 @@ com_stop(wordlist *wl)
                 wl = wl->wl_next;
 
                 /* Now get the condition */
-                if (eq(wl->wl_word, "eq") || eq(wl->wl_word, "="))
+                if (eq(wl->wl_word, "eq") || eq(wl->wl_word, "=")){
                     d->db_op = DBC_EQU;
-                else if (eq(wl->wl_word, "ne"))
+                } else if (eq(wl->wl_word, "ne"))
                     d->db_op = DBC_NEQ;
-                else if (eq(wl->wl_word, "gt") || eq(wl->wl_word, ">"))
+                else if (eq(wl->wl_word, "mod")) {
+                    d->db_op = DBC_MOD;
+                } else if (eq(wl->wl_word, "gt") || eq(wl->wl_word, ">"))
                     d->db_op = DBC_GT;
                 else if (eq(wl->wl_word, "lt"))
                     d->db_op = DBC_LT;
@@ -575,6 +578,20 @@ satisfied(struct dbcomm *d, struct plot *plot)
         return hit;
     }
         // return ((d1 == d2) ? TRUE : FALSE);
+    case DBC_MOD:
+    {
+        bool zero = AlmostEqualUlps(d1, 0, 3) ? TRUE : FALSE;
+        if (zero == TRUE)
+            return FALSE;
+        double rem = fmod(d1,d2);
+        bool rem_hit = FALSE;
+        if (rem-last_rem < 0){
+            rem_hit = TRUE;
+        }
+        last_rem = rem;
+        return rem_hit;
+    }
+
     case DBC_NEQ:
         return ((d1 != d2) ? TRUE : FALSE);
     case DBC_GTE:
@@ -623,6 +640,9 @@ printcond(struct dbcomm *d, FILE *fp)
             switch (dt->db_op) {
             case DBC_EQU:
                 fputs(" =", fp);
+                break;
+            case DBC_MOD:
+                fputs(" mod", fp);
                 break;
             case DBC_NEQ:
                 fputs(" <>", fp);
