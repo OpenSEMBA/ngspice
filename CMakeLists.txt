@@ -1,12 +1,19 @@
 cmake_minimum_required (VERSION 3.15)
 
+message(STATUS "Creating build system for ngspice")
+
 project(ngspice C)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-add_library(ngspice
+include_directories(
+	"src/"
+	"src/include/"
+)
+
+add_library(ngspice-maths
 	"./src/maths/ni/nicomcof.c"
 	"./src/maths/ni/nipred.c"
 	"./src/maths/ni/niconv.c"
@@ -106,9 +113,121 @@ add_library(ngspice
 	"./src/maths/KLU/klu.c"
 	"./src/maths/KLU/klu_multiply.c"
 )
-include_directories(
-	"src/"
-	"src/include/"
-	"src/maths/poly/"
+target_include_directories(ngspice-maths PUBLIC
+    "./src/maths/poly"
 )
 
+add_library(ngspice
+	"./src/ngspice.c"
+	"./src/sharedspice.c"
+	"./src/spicelib/analysis/dctran.c"
+	"./src/spicelib/analysis/cktterr.c"
+	"./src/spicelib/analysis/pzaskq.c"
+	"./src/spicelib/analysis/cktmask.c"
+	"./src/spicelib/analysis/dsetparm.c"
+	"./src/spicelib/analysis/ckttemp.c"
+	"./src/spicelib/analysis/cktfnode.c"
+	"./src/spicelib/analysis/sensaskq.c"
+	"./src/spicelib/analysis/cktsens.c"
+	"./src/spicelib/analysis/cktload.c"
+	"./src/spicelib/analysis/dkerproc.c"
+	"./src/spicelib/analysis/dloadfns.c"
+	"./src/spicelib/analysis/cluster.c"
+	"./src/spicelib/analysis/cktncdump.c"
+	"./src/spicelib/analysis/dcoaskq.c"
+	"./src/spicelib/analysis/cktacct.c"
+	"./src/spicelib/analysis/pssinit.c"
+	"./src/spicelib/analysis/cktsgen.c"
+	"./src/spicelib/analysis/cktmapn.c"
+	"./src/spicelib/analysis/cktntask.c"
+	"./src/spicelib/analysis/nsetparm.c"
+	"./src/spicelib/analysis/noisean.c"
+	"./src/spicelib/analysis/ninteg.c"
+	"./src/spicelib/analysis/pssaskq.c"
+	"./src/spicelib/analysis/cktpname.c"
+	"./src/spicelib/analysis/cktnames.c"
+	"./src/spicelib/analysis/cktnewn.c"
+	"./src/spicelib/analysis/cktfbran.c"
+	"./src/spicelib/analysis/cktmkcur.c"
+	"./src/spicelib/analysis/nevalsrc.c"
+	"./src/spicelib/analysis/cktsetap.c"
+	"./src/spicelib/analysis/daskq.c"
+	"./src/spicelib/analysis/cktfnda.c"
+	"./src/spicelib/analysis/cktparam.c"
+	"./src/spicelib/analysis/cktnum2n.c"
+	"./src/spicelib/analysis/cktsetnp.c"
+	"./src/spicelib/analysis/cktpzstr.c"
+	"./src/spicelib/analysis/spsetp.c"
+	"./src/spicelib/analysis/dcosetp.c"
+	"./src/spicelib/analysis/cktdelt.c"
+	"./src/spicelib/analysis/dcpss.c"
+	"./src/spicelib/analysis/cktdltn.c"
+	"./src/spicelib/analysis/ckti2nod.c"
+	"./src/spicelib/analysis/cktnodn.c"
+	"./src/spicelib/analysis/tfaskq.c"
+	"./src/spicelib/analysis/cktdest.c"
+	"./src/spicelib/analysis/cktmcrt.c"
+	"./src/spicelib/analysis/tfanal.c"
+	"./src/spicelib/analysis/cktdump.c"
+	"./src/spicelib/analysis/optran.c"
+	"./src/spicelib/analysis/cktmpar.c"
+	"./src/spicelib/analysis/cktlnkeq.c"
+	"./src/spicelib/analysis/cktspdum.c"
+	"./src/spicelib/analysis/cktspnoise.c"
+	"./src/spicelib/analysis/dctaskq.c"
+	"./src/spicelib/analysis/traninit.c"
+	"./src/spicelib/analysis/cktaskaq.c"
+	"./src/spicelib/analysis/cktmknod.c"
+	"./src/spicelib/analysis/cktneweq.c"
+	"./src/spicelib/analysis/cktpzld.c"
+	"./src/spicelib/analysis/ckttrunc.c"
+	"./src/spicelib/analysis/span.c"
+	"./src/spicelib/analysis/acan.c"
+	"./src/spicelib/analysis/cktfndm.c"
+	"./src/spicelib/analysis/cktdisto.c"
+	"./src/spicelib/analysis/cktdltm.c"
+	"./src/spicelib/analysis/naskq.c"
+	"./src/spicelib/analysis/cktop.c"
+	"./src/spicelib/analysis/cktbkdum.c"
+	"./src/spicelib/analysis/psssetp.c"
+	"./src/spicelib/analysis/pzan.c"
+	"./src/spicelib/analysis/cktasknq.c"
+	"./src/spicelib/analysis/pzsetp.c"
+	"./src/spicelib/analysis/cktic.c"
+	"./src/spicelib/analysis/dcop.c"
+	"./src/spicelib/analysis/noisesp.c"
+	"./src/spicelib/analysis/acaskq.c"
+	"./src/spicelib/analysis/cktsetbk.c"
+	"./src/spicelib/analysis/cktgrnd.c"
+	"./src/spicelib/analysis/cktftask.c"
+	"./src/spicelib/analysis/ckttyplk.c"
+	"./src/spicelib/analysis/transetp.c"
+	"./src/spicelib/analysis/ckttroub.c"
+	"./src/spicelib/analysis/spaskq.c"
+	"./src/spicelib/analysis/cktdlti.c"
+	"./src/spicelib/analysis/cktdojob.c"
+	"./src/spicelib/analysis/cktsopt.c"
+	"./src/spicelib/analysis/analysis.c"
+	"./src/spicelib/analysis/dctrcurv.c"
+	"./src/spicelib/analysis/tfsetp.c"
+	"./src/spicelib/analysis/acsetp.c"
+	"./src/spicelib/analysis/cktmkvol.c"
+	"./src/spicelib/analysis/tranaskq.c"
+	"./src/spicelib/analysis/cktpzset.c"
+	"./src/spicelib/analysis/distoan.c"
+	"./src/spicelib/analysis/senssetp.c"
+	"./src/spicelib/analysis/cktnoise.c"
+	"./src/spicelib/analysis/cktnewan.c"
+	"./src/spicelib/analysis/cktpmnam.c"
+	"./src/spicelib/analysis/dctsetp.c"
+	"./src/spicelib/analysis/cktacdum.c"
+	"./src/spicelib/analysis/cktclrbk.c"
+	"./src/spicelib/analysis/cktsetup.c"
+)
+
+target_include_directories(ngspice PUBLIC
+	"./src/include/ngspice"
+	"./src/spicelib/devices"
+)
+
+target_link_libraries(ngspice ngspice-maths)
