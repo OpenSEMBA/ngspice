@@ -298,7 +298,7 @@ add_library(ngspice-spicelib
 	"./src/frontend/nutmegif.c"
 	"./src/frontend/options.c"
 	"./src/frontend/outitf.c"
-	"./src/frontend/parse.c"
+	# "./src/frontend/parse.c"
 	"./src/frontend/parser/backq.c"
 	"./src/frontend/parser/complete.c"
 	"./src/frontend/parser/cshpar.c"
@@ -336,7 +336,7 @@ add_library(ngspice-spicelib
 	"./src/frontend/subckt.c"
 	"./src/frontend/svg.c"
 	"./src/frontend/terminal.c"
-	"./src/frontend/testcommands.c"
+	# "./src/frontend/testcommands.c"
 	"./src/frontend/trannoise/1-f-code.c"
 	"./src/frontend/trannoise/FastNorm3.c"
 	"./src/frontend/trannoise/wallace.c"
@@ -348,6 +348,20 @@ add_library(ngspice-spicelib
 	"./src/frontend/wdisp/windisp.c"
 	"./src/frontend/wdisp/winprint.c"
 	"./src/frontend/where.c"
+	"./src/misc/alloc.c"
+	"./src/misc/dstring.c"
+	"./src/misc/dup2.c"
+	"./src/misc/getopt_long_bsd.c"
+	"./src/misc/hash.c"
+	"./src/misc/ivars.c"
+	"./src/misc/misc_time.c"
+	"./src/misc/mktemp.c"
+	"./src/misc/printnum.c"
+	"./src/misc/string.c"
+	"./src/misc/tilde.c"
+	"./src/misc/util.c"
+	"./src/misc/win_time.c"
+	"./src/misc/wlist.c"
 )
 
 if (NGSPICE_ENABLE_PSS_ANALYSIS)
@@ -359,8 +373,9 @@ if (NGSPICE_ENABLE_PSS_ANALYSIS)
 endif()
 
 target_include_directories(ngspice-spicelib PUBLIC
-	"./src/include/ngspice"
-	"./src/spicelib/devices"
+	"./src/include/ngspice/"
+	"./src/spicelib/devices/"
+	"./src/frontend/"
 )
 
 # -------- Shared spice -----
