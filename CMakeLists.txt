@@ -23,6 +23,10 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
 	add_definitions(-DHAVE_LIBPTHREAD=1)
 	add_definitions(-DHAVE_SIGSETJMP=1)
 	add_definitions(-DHAVE_SIG_T=1)
+	add_definitions(-DHAVE___SIGHANDLER_T=1)
+	add_definitions(-DHAVE_TDESTROY=1)
+	add_definitions(-DHAVE_TSEARCH=1)
+	add_definitions(-DHAVE_SYS_IOCTL_H=1)
 endif()
 
 include_directories(
@@ -1207,7 +1211,7 @@ add_library(ngspice-spicelib
 	"./src/spicelib/parser/inp2k.c"
 	"./src/spicelib/parser/inp2l.c"
 	"./src/spicelib/parser/inp2m.c"
-	"./src/spicelib/parser/inp2n.c"
+	# "./src/spicelib/parser/inp2n.c"
 	"./src/spicelib/parser/inp2o.c"
 	"./src/spicelib/parser/inp2p.c"
 	"./src/spicelib/parser/inp2q.c"
@@ -1400,16 +1404,16 @@ add_library(ngspice-spicelib
 	"./src/misc/util.c"
 	# "./src/misc/win_time.c"
 	"./src/misc/wlist.c"
-	"./src/osdi/osdiacld.c"
-	"./src/osdi/osdicallbacks.c"
-	"./src/osdi/osdiinit.c"
-	"./src/osdi/osdiload.c"
-	"./src/osdi/osdinoise.c"
-	"./src/osdi/osdiparam.c"
-	"./src/osdi/osdipzld.c"
-	"./src/osdi/osdiregistry.c"
-	"./src/osdi/osdisetup.c"
-	"./src/osdi/osditrunc.c"
+	# "./src/osdi/osdiacld.c"
+	# "./src/osdi/osdicallbacks.c"
+	# "./src/osdi/osdiinit.c"
+	# "./src/osdi/osdiload.c"
+	# "./src/osdi/osdinoise.c"
+	# "./src/osdi/osdiparam.c"
+	# "./src/osdi/osdipzld.c"
+	# "./src/osdi/osdiregistry.c"
+	# "./src/osdi/osdisetup.c"
+	# "./src/osdi/osditrunc.c"
 )
 
 if (NGSPICE_ENABLE_PSS_ANALYSIS)

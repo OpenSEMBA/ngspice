@@ -325,7 +325,7 @@
 #define HAVE_SYS_FILE_H 1
 
 /* Define to 1 if you have the <sys/ioctl.h> header file. */
-#define HAVE_SYS_IOCTL_H 1
+// #define HAVE_SYS_IOCTL_H 1
 
 /* Define to 1 if you have the <sys/io.h> header file. */
 #define HAVE_SYS_IO_H 1
@@ -371,7 +371,7 @@
 #define HAVE_TCSETATTR 1
 
 /* Define to 1 if you have the `tdestroy' function. */
-#define HAVE_TDESTROY 1
+// #define HAVE_TDESTROY 1
 
 /* Define if we have ncurses/terminfo or termcap */
 /* #undef HAVE_TERMCAP */
@@ -393,7 +393,7 @@
 #define HAVE_TM_ZONE 1
 
 /* Define to 1 if you have the `tsearch' function. */
-#define HAVE_TSEARCH 1
+// #define HAVE_TSEARCH 1
 
 /* Define to 1 if you don't have `tm_zone' but do have the external array
    `tzname'. */
@@ -433,7 +433,7 @@
 /* #undef HAVE__PROC_MEMINFO */
 
 /* Define to 1 if the system has the type `__sighandler_t'. */
-#define HAVE___SIGHANDLER_T 1
+// #define HAVE___SIGHANDLER_T 1
 
 /* Client-Server only via stdio. */
 /* #undef IPC_DEBUG_VIA_STDIO */
@@ -481,7 +481,7 @@
 /* #undef OLD_BISON */
 
 /* The OSDI enhancements */
-#define OSDI 1
+// #define OSDI 1
 
 /* Other Operating System */
 #define OS_COMPILED 6
