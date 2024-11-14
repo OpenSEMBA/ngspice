@@ -2,7 +2,8 @@ cmake_minimum_required (VERSION 3.15)
 
 message(STATUS "Creating build system for ngspice")
 
-project(ngspice C)
+project(ngspice)
+enable_language(C CXX)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -646,6 +647,8 @@ add_library(ngspice-spicelib
 	"./src/spicelib/devices/hicum2/hicum2.c"
 	"./src/spicelib/devices/hicum2/hicum2acld.c"
 	"./src/spicelib/devices/hicum2/hicum2ask.c"
+	"./src/spicelib/devices/hicum2/hicumL2.cpp"
+    "./src/spicelib/devices/hicum2/hicumL2temp.cpp"
 	# "./src/spicelib/devices/hicum2/hicum2bindCSC.c"
 	"./src/spicelib/devices/hicum2/hicum2conv.c"
 	"./src/spicelib/devices/hicum2/hicum2getic.c"
@@ -1226,6 +1229,7 @@ add_library(ngspice-spicelib
 	"./src/spicelib/parser/inppas3.c"
 	"./src/spicelib/parser/inppas4.c"
 	"./src/spicelib/parser/inppname.c"
+	"./src/spicelib/parser/inpptree-parser.c"
 	"./src/spicelib/parser/inpptree.c"
 	"./src/spicelib/parser/inpsymt.c"
 	"./src/spicelib/parser/inptyplk.c"
@@ -1315,7 +1319,8 @@ add_library(ngspice-spicelib
 	"./src/frontend/nutmegif.c"
 	"./src/frontend/options.c"
 	"./src/frontend/outitf.c"
-	# "./src/frontend/parse.c"
+	"./src/frontend/parse.c"
+	"./src/frontend/parse-bison.c"
 	"./src/frontend/parser/backq.c"
 	"./src/frontend/parser/complete.c"
 	"./src/frontend/parser/cshpar.c"
@@ -1379,6 +1384,16 @@ add_library(ngspice-spicelib
 	"./src/misc/util.c"
 	# "./src/misc/win_time.c"
 	"./src/misc/wlist.c"
+	"./src/osdi/osdiacld.c"
+	"./src/osdi/osdicallbacks.c"
+	"./src/osdi/osdiinit.c"
+	"./src/osdi/osdiload.c"
+	"./src/osdi/osdinoise.c"
+	"./src/osdi/osdiparam.c"
+	"./src/osdi/osdipzld.c"
+	"./src/osdi/osdiregistry.c"
+	"./src/osdi/osdisetup.c"
+	"./src/osdi/osditrunc.c"
 )
 
 if (NGSPICE_ENABLE_PSS_ANALYSIS)
@@ -1391,6 +1406,7 @@ endif()
 
 target_include_directories(ngspice-spicelib PUBLIC
 	"./src/include/ngspice/"
+	"./src/include/cppduals/"
 	"./src/spicelib/devices/"
 	"./src/spicelib/parser/"
 	"./src/frontend/"
