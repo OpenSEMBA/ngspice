@@ -136,7 +136,6 @@ add_library(ngspice
 	"./src/spicelib/analysis/cktncdump.c"
 	"./src/spicelib/analysis/dcoaskq.c"
 	"./src/spicelib/analysis/cktacct.c"
-	"./src/spicelib/analysis/pssinit.c"
 	"./src/spicelib/analysis/cktsgen.c"
 	"./src/spicelib/analysis/cktmapn.c"
 	"./src/spicelib/analysis/cktntask.c"
@@ -160,7 +159,6 @@ add_library(ngspice
 	"./src/spicelib/analysis/spsetp.c"
 	"./src/spicelib/analysis/dcosetp.c"
 	"./src/spicelib/analysis/cktdelt.c"
-	"./src/spicelib/analysis/dcpss.c"
 	"./src/spicelib/analysis/cktdltn.c"
 	"./src/spicelib/analysis/ckti2nod.c"
 	"./src/spicelib/analysis/cktnodn.c"
@@ -189,7 +187,6 @@ add_library(ngspice
 	"./src/spicelib/analysis/naskq.c"
 	"./src/spicelib/analysis/cktop.c"
 	"./src/spicelib/analysis/cktbkdum.c"
-	"./src/spicelib/analysis/psssetp.c"
 	"./src/spicelib/analysis/pzan.c"
 	"./src/spicelib/analysis/cktasknq.c"
 	"./src/spicelib/analysis/pzsetp.c"
@@ -224,6 +221,14 @@ add_library(ngspice
 	"./src/spicelib/analysis/cktclrbk.c"
 	"./src/spicelib/analysis/cktsetup.c"
 )
+
+if (NGSPICE_ENABLE_PSS_ANALYSIS)
+	target_sources(ngspice PRIVATE
+		"./src/spicelib/analysis/pssinit.c"
+		"./src/spicelib/analysis/psssetp.c"
+		"./src/spicelib/analysis/dcpss.c"
+	)
+endif()
 
 target_include_directories(ngspice PUBLIC
 	"./src/include/ngspice"

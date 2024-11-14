@@ -1,0 +1,36 @@
+name: ubuntu-nvhpc
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  builds-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix: 
+        optimization-type: ["Debug", "Release"]
+
+    timeout-minutes: 30
+    steps:       
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+
+    - uses: fortran-lang/setup-fortran@v1
+      id: setup-fortran
+      with:
+        compiler: nvidia-hpc
+        version: '24.5'
+      
+    - name: Build application
+      run: |
+        # export CC=nvcc
+        # export CXX=nvc++
+        # export FC=nvfortran
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=${{matrix.optimization-type}} -DSEMBA_FDTD_ENABLE_HDF=NO
+        cmake --build build -j      

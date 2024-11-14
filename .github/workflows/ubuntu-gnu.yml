@@ -1,0 +1,27 @@
+name: ubuntu-gnu
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  
+  builds-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        build-type: ["Debug", "Release"]
+        
+    steps:       
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+      
+    - name: Build application
+      run: |       
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=${{matrix.build-type}}
+        cmake --build build -j     
+      

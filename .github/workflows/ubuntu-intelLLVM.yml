@@ -1,0 +1,36 @@
+name: ubuntu-intelLLVM
+
+on:     
+  pull_request:
+    branches:
+      - main
+      - dev 
+
+jobs:
+
+  builds-and-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        optimization-type: ["Debug", "Release"]
+
+    steps:
+
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+
+    - name: Setup intel fortran
+      uses: fortran-lang/setup-fortran@v1
+      id: setup-fortran
+      with:
+        compiler: intel
+        version: '2024.2'
+
+    - name: CMake build
+      run: |
+        export FC=ifx
+        export CC=icx
+        export CXX=icpx
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=${{matrix.optimization-type}} -DSEMBA_FDTD_ENABLE_MPI=${{matrix.mpi-build}} -DSEMBA_FDTD_ENABLE_HDF=YES
+        cmake --build build -j
