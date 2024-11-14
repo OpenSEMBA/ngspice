@@ -33,5 +33,5 @@ jobs:
     - name: CMake build
       shell: bash
       run: |
-        # .github/workflows/build_windows.bat
-        cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=${{matrix.optimization-type}} CC=icx CXX=icpx
+        cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=${{matrix.optimization-type}} CC=icx
+        cmake --build build -j

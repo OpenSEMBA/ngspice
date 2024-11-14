@@ -20,6 +20,9 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
 	add_definitions(-DHAVE_DIRENT_H=1)
 	add_definitions(-DHAVE_GETRLIMIT=1)
 	add_definitions(-DHAVE_UNISTD_H=1)
+	add_definitions(-DHAVE_LIBPTHREAD=1)
+	add_definitions(-DHAVE_SIGSETJMP=1)
+	add_definitions(-DHAVE_SIG_T=1)
 endif()
 
 include_directories(
@@ -983,20 +986,20 @@ add_library(ngspice-spicelib
 	"./src/spicelib/devices/nbjt2/nbt2set.c"
 	"./src/spicelib/devices/nbjt2/nbt2temp.c"
 	"./src/spicelib/devices/nbjt2/nbt2trun.c"
-	"./src/spicelib/devices/ndev/ndev.c"
-	"./src/spicelib/devices/ndev/ndevaccept.c"
-	"./src/spicelib/devices/ndev/ndevacld.c"
-	"./src/spicelib/devices/ndev/ndevask.c"
-	"./src/spicelib/devices/ndev/ndevdump.c"
-	"./src/spicelib/devices/ndev/ndevinit.c"
-	"./src/spicelib/devices/ndev/ndevload.c"
-	"./src/spicelib/devices/ndev/ndevmdel.c"
-	"./src/spicelib/devices/ndev/ndevmpar.c"
-	"./src/spicelib/devices/ndev/ndevparm.c"
-	"./src/spicelib/devices/ndev/ndevpzld.c"
-	"./src/spicelib/devices/ndev/ndevset.c"
-	"./src/spicelib/devices/ndev/ndevtemp.c"
-	"./src/spicelib/devices/ndev/ndevtrun.c"
+	# "./src/spicelib/devices/ndev/ndev.c"
+	# "./src/spicelib/devices/ndev/ndevaccept.c"
+	# "./src/spicelib/devices/ndev/ndevacld.c"
+	# "./src/spicelib/devices/ndev/ndevask.c"
+	# "./src/spicelib/devices/ndev/ndevdump.c"
+	# "./src/spicelib/devices/ndev/ndevinit.c"
+	# "./src/spicelib/devices/ndev/ndevload.c"
+	# "./src/spicelib/devices/ndev/ndevmdel.c"
+	# "./src/spicelib/devices/ndev/ndevmpar.c"
+	# "./src/spicelib/devices/ndev/ndevparm.c"
+	# "./src/spicelib/devices/ndev/ndevpzld.c"
+	# "./src/spicelib/devices/ndev/ndevset.c"
+	# "./src/spicelib/devices/ndev/ndevtemp.c"
+	# "./src/spicelib/devices/ndev/ndevtrun.c"
 	"./src/spicelib/devices/numd/numd.c"
 	"./src/spicelib/devices/numd/numdacld.c"
 	"./src/spicelib/devices/numd/numdask.c"

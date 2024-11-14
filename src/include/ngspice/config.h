@@ -186,7 +186,7 @@
 #define HAVE_LIBM 1
 
 /* Define to 1 if you have the `pthread' library (-lpthread). */
-#define HAVE_LIBPTHREAD 1
+// #define HAVE_LIBPTHREAD 1
 
 /* Have xft routines in libxft */
 /* #undef HAVE_LIBXFT */
@@ -258,10 +258,10 @@
 /* #undef HAVE_SIGHANDLER_T */
 
 /* Define if we have sigsetjmp(). */
-#define HAVE_SIGSETJMP /**/
+// #define HAVE_SIGSETJMP /**/
 
 /* Define to 1 if the system has the type `sig_t'. */
-#define HAVE_SIG_T 1
+// #define HAVE_SIG_T 1
 
 /* Define to 1 if you have the `snprintf' function. */
 #define HAVE_SNPRINTF 1
