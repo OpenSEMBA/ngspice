@@ -1,0 +1,37 @@
+name: windows-intelLLVM
+
+on:     
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+
+  builds-and-tests:
+    runs-on: windows-latest
+    strategy:
+      matrix: 
+        optimization-type: ["Debug", "Release"]
+
+    steps:
+
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'recursive'
+
+    - name: Setup intel fortran
+      uses: fortran-lang/setup-fortran@v1
+      id: setup-fortran
+      with:
+        compiler: intel
+        version: '2024.0'
+
+    - name: Setup ninja
+      uses: seanmiddleditch/gha-setup-ninja@master
+
+    - name: CMake build
+      shell: bash
+      run: |
+        # .github/workflows/build_windows.bat
+        cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=${{matrix.optimization-type}} CC=icx CXX=icpx

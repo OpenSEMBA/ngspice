@@ -87,7 +87,7 @@
 
 /* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
    */
-#define HAVE_DIRENT_H 1
+// #define HAVE_DIRENT_H 1
 
 /* Have dirname in libgen */
 #define HAVE_DIRNAME 1
@@ -141,7 +141,7 @@
 #define HAVE_GETOPT_LONG 1
 
 /* Define to 1 if you have the `getrlimit' function. */
-#define HAVE_GETRLIMIT 1
+// #define HAVE_GETRLIMIT 1
 
 /* Define to 1 if you have the `getrusage' function. */
 /* #undef HAVE_GETRUSAGE */
@@ -219,16 +219,16 @@
 /* #undef HAVE_NDIR_H */
 
 /* Define to 1 if you have the <netdb.h> header file. */
-#define HAVE_NETDB_H 1
+// #define HAVE_NETDB_H 1
 
 /* Define to 1 if you have the <netinet/in.h> header file. */
-#define HAVE_NETINET_IN_H 1
+// #define HAVE_NETINET_IN_H 1
 
 /* Define to 1 if you have the `popen' function. */
 #define HAVE_POPEN 1
 
 /* Define to 1 if you have the <pwd.h> header file. */
-#define HAVE_PWD_H 1
+// #define HAVE_PWD_H 1 // CMake
 
 /* Define to 1 if you have the `qsort' function. */
 #define HAVE_QSORT 1
@@ -294,7 +294,7 @@
 #define HAVE_STRERROR 1
 
 /* Define to 1 if you have the <strings.h> header file. */
-#define HAVE_STRINGS_H 1
+// #define HAVE_STRINGS_H 1 // Managed in CMake
 
 /* Define to 1 if you have the <string.h> header file. */
 #define HAVE_STRING_H 1
@@ -341,7 +341,7 @@
 #define HAVE_SYS_SELECT_H 1
 
 /* Define to 1 if you have the <sys/socket.h> header file. */
-#define HAVE_SYS_SOCKET_H 1
+// #define HAVE_SYS_SOCKET_H 1
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
@@ -359,7 +359,7 @@
 #define HAVE_SYS_TYPES_H 1
 
 /* Define to 1 if you have <sys/wait.h> that is POSIX.1 compatible. */
-#define HAVE_SYS_WAIT_H 1
+// #define HAVE_SYS_WAIT_H 1
 
 /* Define to 1 if you have the `tcgetattr' function. */
 #define HAVE_TCGETATTR 1
@@ -380,7 +380,7 @@
 /* #undef HAVE_TERMCAP_H */
 
 /* Define to 1 if you have the <termios.h> header file. */
-#define HAVE_TERMIOS_H 1
+// #define HAVE_TERMIOS_H 1 // Managed by CMAKE
 
 /* Define to 1 if you have the <termio.h> header file. */
 /* #undef HAVE_TERMIO_H */
@@ -403,7 +403,7 @@
 /* #undef HAVE_ULIMIT */
 
 /* Define to 1 if you have the <unistd.h> header file. */
-#define HAVE_UNISTD_H 1
+// #define HAVE_UNISTD_H 1
 
 /* Define to 1 if you have the `utimes' function. */
 #define HAVE_UTIMES 1

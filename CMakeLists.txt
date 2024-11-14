@@ -9,6 +9,19 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+	add_definitions(-DHAVE_STRINGS_H=1)
+	add_definitions(-DHAVE_TERMIOS_H=1)
+	add_definitions(-DHAVE_PWD_H=1)
+	add_definitions(-DHAVE_NETINET_IN_H=1)
+	add_definitions(-DHAVE_NETDB_H=1)
+	add_definitions(-DHAVE_SYS_SOCKET_H=1)
+	add_definitions(-DHAVE_SYS_WAIT_H=1)
+	add_definitions(-DHAVE_DIRENT_H=1)
+	add_definitions(-DHAVE_GETRLIMIT=1)
+	add_definitions(-DHAVE_UNISTD_H=1)
+endif()
+
 include_directories(
 	"src/"
 	"src/include/"
