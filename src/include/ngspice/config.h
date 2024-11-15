@@ -11,7 +11,7 @@
 /* #undef CAPBYPASS */
 
 /* The CIDER enhancements */
-// #define CIDER 1
+#define CIDER 1
 
 /* Define to 1 if the `closedir' function returns void instead of int. */
 /* #undef CLOSEDIR_VOID */
@@ -442,7 +442,7 @@
 #define IPC_UNIX_SOCKETS 1
 
 /* Define if we want KLU linear systems solver */
-// #define KLU /**/
+#define KLU 1
 
 /* Define to the sub-directory where libtool stores uninstalled libraries. */
 #define LT_OBJDIR ".libs/"

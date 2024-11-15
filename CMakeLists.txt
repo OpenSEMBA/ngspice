@@ -110,10 +110,11 @@ add_library(ngspice-maths
 	"./src/maths/KLU/colamd_global.c"
 )
 target_include_directories(ngspice-maths PUBLIC
-    "./src/maths/poly"
-    "./src/maths/KLU"
-	"./src/include/ngspice"
+    "./src/maths/poly/"
+	"./src/include/ngspice/"
 )
+
+
 
 add_library(ngspice-xspice
 	"./src/xspice/enh/enh.c"
@@ -1484,6 +1485,7 @@ target_include_directories(ngspice-spicelib PUBLIC
 
 # -------- Shared spice -----
 # target_link_libraries(ngspice-spicelib ngspice-maths)
+
 target_link_libraries(ngspice-spicelib ngspice-maths ngspice-xspice)
 add_library(ngspice
 	# "./src/nghelp.c"
@@ -1497,7 +1499,6 @@ target_link_libraries(ngspice ngspice-spicelib)
 # 	"./src/main.c"
 # )
 # target_link_libraries(ngspice_main ngspice-spicelib)
-
 
 # ------- Tests
 if (NGSPICE_ENABLE_TESTS)
