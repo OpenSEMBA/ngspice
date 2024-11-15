@@ -111,10 +111,7 @@ add_library(ngspice-maths
 )
 target_include_directories(ngspice-maths PUBLIC
     "./src/maths/poly/"
-	"./src/include/ngspice/"
 )
-
-
 
 add_library(ngspice-xspice
 	"./src/xspice/enh/enh.c"
@@ -177,11 +174,12 @@ add_library(ngspice-xspice
 	"./src/xspice/cmpp/read_ifs.c"
 	"./src/xspice/cmpp/util.c"
 	"./src/xspice/cmpp/writ_ifs.c"
-	"./src/xspice/icm/dlmain.c"
+	# "./src/xspice/icm/dlmain.c"
 )
 
 target_include_directories(ngspice-xspice PUBLIC
 	"./src/include/ngspice"
+	"./src/spicelib/devices/"
 )
 
 add_library(ngspice-spicelib
@@ -1484,8 +1482,6 @@ target_include_directories(ngspice-spicelib PUBLIC
 )
 
 # -------- Shared spice -----
-# target_link_libraries(ngspice-spicelib ngspice-maths)
-
 target_link_libraries(ngspice-spicelib ngspice-maths ngspice-xspice)
 add_library(ngspice
 	# "./src/nghelp.c"
