@@ -9,7 +9,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-option(NGSPICE_ENABLE_KLU ON "Enables KLU compilation in maths (needed by XSPICE)")
+option(NGSPICE_ENABLE_KLU "Enables KLU compilation in maths (needed by XSPICE)" ON)
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
 	add_definitions(-DHAVE_STRINGS_H=1)
@@ -50,13 +50,6 @@ add_library(ngspice-maths
 	"./src/maths/ni/nireinit.c"
 	"./src/maths/ni/niniter.c"
 	"./src/maths/ni/nidest.c"
-	"./src/maths/sparse/spextra.c"
-	"./src/maths/sparse/spbuild.c"
-	"./src/maths/sparse/spfactor.c"
-	"./src/maths/sparse/sputils.c"
-	"./src/maths/sparse/spsolve.c"
-	"./src/maths/sparse/spalloc.c"
-	"./src/maths/sparse/spoutput.c"
 	"./src/maths/fft/fftext.c"
 	"./src/maths/fft/fftlib.c"
 	"./src/maths/fft/matlib.c"
@@ -92,8 +85,20 @@ add_library(ngspice-maths
 	"./src/maths/misc/logb.c"
 	"./src/maths/misc/norm.c"
 )
+
+add_library(ngspice-maths-sparse 
+	"./src/maths/sparse/spextra.c"
+	"./src/maths/sparse/spbuild.c"
+	"./src/maths/sparse/spfactor.c"
+	"./src/maths/sparse/sputils.c"
+	"./src/maths/sparse/spsolve.c"
+	"./src/maths/sparse/spalloc.c"
+	"./src/maths/sparse/spoutput.c"
+)
+
 if(NGSPICE_ENABLE_KLU)
-	target_sources(ngspice-maths PUBLIC
+	# message(STATUS "NGSPICE_ENABLE_KLU is ON")
+	add_library(ngspice-maths-klu
 		"./src/maths/KLU/amd_info.c"
 		"./src/maths/KLU/klusmp.c"
 		"./src/maths/KLU/klu.c"
@@ -133,13 +138,22 @@ if(NGSPICE_ENABLE_KLU)
 		"./src/maths/KLU/colamd.c"
 		"./src/maths/KLU/colamd_global.c"
 	)
+	target_include_directories(ngspice-maths-klu PRIVATE
+		"./src/include/ngspice/"
+	)
+	target_link_libraries(ngspice-maths-klu ngspice-maths-sparse)
+	target_link_libraries(ngspice-maths PRIVATE ngspice-maths-klu)
 else()
-	target_sources(ngspice-maths PRIVATE
+
+	target_sources(ngspice-maths PUBLIC
 		"./src/maths/sparse/spsmp.c"
 	)
+	target_link_libraries(ngspice-maths ngspice-maths-sparse)
 endif()
+
 target_include_directories(ngspice-maths PUBLIC
-    "./src/maths/poly/"
+	# "./src/include/"	
+	"./src/maths/poly/"
 )
 
 add_library(ngspice-xspice
@@ -1583,7 +1597,7 @@ target_include_directories(ngspice-spicelib PUBLIC
 )
 
 # -------- Shared spice -----
-target_link_libraries(ngspice-spicelib 
+target_link_libraries(ngspice-spicelib PRIVATE 
 	ngspice-maths 
 	ngspice-xspice
 )
@@ -1592,7 +1606,7 @@ add_library(ngspice
 	"./src/conf.c"
 	"./src/sharedspice.c"	
 )
-target_link_libraries(ngspice ngspice-spicelib)
+target_link_libraries(ngspice PRIVATE ngspice-spicelib)
 
 # # ------- ngspice executable
 # add_executable(ngspice_main
