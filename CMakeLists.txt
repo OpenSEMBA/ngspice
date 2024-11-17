@@ -97,32 +97,9 @@ add_library(ngspice-maths-sparse
 )
 
 if(NGSPICE_ENABLE_KLU)
-	# message(STATUS "NGSPICE_ENABLE_KLU is ON")
-	add_library(ngspice-maths-klu
+	message(STATUS "NGSPICE_ENABLE_KLU is ON")
+	set(NGSPICE_KLU_VERSIONABLE_SRCS 
 		"./src/maths/KLU/amd_info.c"
-		"./src/maths/KLU/klusmp.c"
-		"./src/maths/KLU/klu.c"
-		"./src/maths/KLU/klu_analyze.c"
-		"./src/maths/KLU/klu_sort.c"
-		"./src/maths/KLU/klu_factor.c"
-		"./src/maths/KLU/klu_utils.c"
-		"./src/maths/KLU/klu_kernel.c"
-		"./src/maths/KLU/klu_scale.c"
-		"./src/maths/KLU/klu_extract.c"
-		"./src/maths/KLU/klu_memory.c"
-		"./src/maths/KLU/klu_diagnostics.c"
-		"./src/maths/KLU/klu_free_numeric.c"
-		"./src/maths/KLU/klu_free_symbolic.c"
-		"./src/maths/KLU/klu_defaults.c"
-		"./src/maths/KLU/klu_dump.c"
-		"./src/maths/KLU/klu_tsolve.c"
-		"./src/maths/KLU/klu_multiply.c"
-		"./src/maths/KLU/klu_analyze_given.c"
-		"./src/maths/KLU/klu_refactor.c"
-		"./src/maths/KLU/klu_solve.c"
-		"./src/maths/KLU/btf_maxtrans.c"
-		"./src/maths/KLU/btf_order.c"
-		"./src/maths/KLU/btf_strongcomp.c"
 		"./src/maths/KLU/amd_global.c"
 		"./src/maths/KLU/amd_dump.c"
 		"./src/maths/KLU/amd_2.c"
@@ -135,13 +112,51 @@ if(NGSPICE_ENABLE_KLU)
 		"./src/maths/KLU/amd_1.c"
 		"./src/maths/KLU/amd_defaults.c"
 		"./src/maths/KLU/amd_postorder.c"
+		"./src/maths/KLU/btf_maxtrans.c"
+		"./src/maths/KLU/btf_order.c"
+		"./src/maths/KLU/btf_strongcomp.c"
 		"./src/maths/KLU/colamd.c"
 		"./src/maths/KLU/colamd_global.c"
+		"./src/maths/KLU/klu_scale.c"
+		"./src/maths/KLU/klu_solve.c"
+		"./src/maths/KLU/klu_tsolve.c"
+		"./src/maths/KLU/klu_free_numeric.c"
+		"./src/maths/KLU/klu_factor.c"
+		"./src/maths/KLU/klu_refactor.c"
+		"./src/maths/KLU/klu_analyze.c"
+		"./src/maths/KLU/klu_kernel.c"
+		"./src/maths/KLU/klu.c"
+		"./src/maths/KLU/klu_diagnostics.c"
+		"./src/maths/KLU/klu_extract.c"
+		"./src/maths/KLU/klu_sort.c"
+		"./src/maths/KLU/klu_utils.c"
+		"./src/maths/KLU/klu_memory.c"
+		"./src/maths/KLU/klu_free_symbolic.c"
+		"./src/maths/KLU/klu_defaults.c"
+		"./src/maths/KLU/klu_dump.c"
+		"./src/maths/KLU/klu_multiply.c"
+		"./src/maths/KLU/klu_analyze_given.c"
+	)
+	add_library(ngspice-maths-klu-float ${NGSPICE_KLU_VERSIONABLE_SRCS})
+	add_library(ngspice-maths-klu-complex ${NGSPICE_KLU_VERSIONABLE_SRCS})
+	target_compile_definitions(ngspice-maths-klu-complex PRIVATE
+		-DCOMPLEX
+	)
+
+	add_library(ngspice-maths-klu
+		"./src/maths/KLU/klusmp.c"
 	)
 	target_include_directories(ngspice-maths-klu PRIVATE
 		"./src/include/ngspice/"
 	)
-	target_link_libraries(ngspice-maths-klu ngspice-maths-sparse)
+	# target_compile_definitions(ngspice-maths-klu PRIVATE
+	# 	-DCOMPLEX
+	# )
+	target_link_libraries(ngspice-maths-klu PRIVATE
+		ngspice-maths-sparse
+		ngspice-maths-klu-float
+		ngspice-maths-klu-complex
+	)
 	target_link_libraries(ngspice-maths PRIVATE ngspice-maths-klu)
 else()
 
