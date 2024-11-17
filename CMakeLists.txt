@@ -1625,10 +1625,11 @@ target_link_libraries(ngspice PRIVATE ngspice-spicelib)
 
 # ------- ngspice executable
 if (NGSPICE_COMPILE_MAIN)
+	message(STATUS "NGSPICE_COMPILE_MAIN is ON")
 	add_executable(ngspice_main
 		"./src/main.c"
 	)
-	target_link_libraries(ngspice_main ngspice-spicelib)
+	target_link_libraries(ngspice_main)
 endif()
 
 # ------- Tests
