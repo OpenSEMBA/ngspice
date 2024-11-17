@@ -9,7 +9,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-option(NGSPICE_ENABLE_KLU "Enables KLU compilation in maths (needed by XSPICE)" ON)
+option(NGSPICE_ENABLE_KLU "Enables KLU compilation in maths" ON)
+option(NGSPICE_COMPILE_MAIN "Enables standalone executable compilaiton" OFF)
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
 	add_definitions(-DHAVE_STRINGS_H=1)
@@ -36,6 +37,7 @@ include_directories(
 	"src/include/"
 )
 
+# --- maths
 add_library(ngspice-maths
 	"./src/maths/ni/nicomcof.c"
 	"./src/maths/ni/nipred.c"
@@ -157,7 +159,6 @@ if(NGSPICE_ENABLE_KLU)
 	)
 	target_link_libraries(ngspice-maths PRIVATE ngspice-maths-klu)
 else()
-
 	target_sources(ngspice-maths PUBLIC
 		"./src/maths/sparse/spsmp.c"
 	)
@@ -165,10 +166,10 @@ else()
 endif()
 
 target_include_directories(ngspice-maths PUBLIC
-	# "./src/include/"	
 	"./src/maths/poly/"
 )
 
+# --- xspice
 add_library(ngspice-xspice
 	"./src/xspice/enh/enh.c"
 	"./src/xspice/enh/enhtrans.c"
@@ -238,6 +239,7 @@ target_include_directories(ngspice-xspice PUBLIC
 	"./src/spicelib/devices/"
 )
 
+# --- Spicelib
 add_library(ngspice-spicelib
 	"./src/ngspice.c"
 	"./src/ciderlib/input/bdryset.c"
@@ -1621,11 +1623,13 @@ add_library(ngspice
 )
 target_link_libraries(ngspice PRIVATE ngspice-spicelib)
 
-# # ------- ngspice executable
-# add_executable(ngspice_main
-# 	"./src/main.c"
-# )
-# target_link_libraries(ngspice_main ngspice-spicelib)
+# ------- ngspice executable
+if (NGSPICE_COMPILE_MAIN)
+	add_executable(ngspice_main
+		"./src/main.c"
+	)
+	target_link_libraries(ngspice_main ngspice-spicelib)
+endif()
 
 # ------- Tests
 if (NGSPICE_ENABLE_TESTS)
