@@ -10,6 +10,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 option(NGSPICE_ENABLE_KLU "Enables KLU compilation in maths" ON)
+option(NGSPICE_ENABLE_XSPICE "Enables xspice" ON)
+option(NGSPICE_ENABLE_PSS_ANALYSIS "Enable PSS analysis" OFF)
 option(NGSPICE_COMPILE_MAIN "Enables standalone executable compilaiton" OFF)
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
@@ -170,74 +172,83 @@ target_include_directories(ngspice-maths PUBLIC
 )
 
 # --- xspice
-add_library(ngspice-xspice
-	"./src/xspice/enh/enh.c"
-	"./src/xspice/enh/enhtrans.c"
-	"./src/xspice/mif/mif.c"
-	"./src/xspice/mif/mif_inp2.c"
-	"./src/xspice/mif/mifask.c"
-	"./src/xspice/mif/mifbindCSC.c"
-	"./src/xspice/mif/mifconvt.c"
-	"./src/xspice/mif/mifdelete.c"
-	"./src/xspice/mif/mifdestr.c"
-	"./src/xspice/mif/mifgetmod.c"
-	"./src/xspice/mif/mifgetvalue.c"
-	"./src/xspice/mif/mifload.c"
-	"./src/xspice/mif/mifmask.c"
-	"./src/xspice/mif/mifmdelete.c"
-	"./src/xspice/mif/mifmpara.c"
-	"./src/xspice/mif/mifsetup.c"
-	"./src/xspice/mif/miftrunc.c"
-	"./src/xspice/mif/mifutil.c"
-	"./src/xspice/cm/cm.c"
-	"./src/xspice/cm/cmevt.c"
-	"./src/xspice/cm/cmexport.c"
-	"./src/xspice/cm/cmmeters.c"
-	"./src/xspice/cm/cmutil.c"
-	"./src/xspice/evt/evtaccept.c"
-	"./src/xspice/evt/evtbackup.c"
-	"./src/xspice/evt/evtcall_hybrids.c"
-	"./src/xspice/evt/evtcheck_nodes.c"
-	"./src/xspice/evt/evtdeque.c"
-	"./src/xspice/evt/evtdest.c"
-	"./src/xspice/evt/evtdump.c"
-	"./src/xspice/evt/evtinit.c"
-	"./src/xspice/evt/evtiter.c"
-	"./src/xspice/evt/evtload.c"
-	"./src/xspice/evt/evtnext_time.c"
-	"./src/xspice/evt/evtnode_copy.c"
-	"./src/xspice/evt/evtop.c"
-	"./src/xspice/evt/evtplot.c"
-	"./src/xspice/evt/evtprint.c"
-	"./src/xspice/evt/evtqueue.c"
-	"./src/xspice/evt/evtsetup.c"
-	"./src/xspice/evt/evtshared.c"
-	"./src/xspice/evt/evttermi.c"
-	"./src/xspice/ipc/ipc.c"
-	"./src/xspice/ipc/ipcaegis.c"
-	"./src/xspice/ipc/ipcsockets.c"
-	"./src/xspice/ipc/ipcstdio.c"
-	"./src/xspice/ipc/ipctiein.c"
-	"./src/xspice/idn/idndig.c"
-	"./src/xspice/cmpp/file_buffer.c"
-	"./src/xspice/cmpp/ifs_lex.c"
-	"./src/xspice/cmpp/ifs_yacc.c"
-	"./src/xspice/cmpp/main.c"
-	"./src/xspice/cmpp/mod_lex.c"
-	"./src/xspice/cmpp/mod_yacc.c"
-	"./src/xspice/cmpp/pp_ifs.c"
-	"./src/xspice/cmpp/pp_lst.c"
-	"./src/xspice/cmpp/pp_mod.c"
-	"./src/xspice/cmpp/read_ifs.c"
-	"./src/xspice/cmpp/util.c"
-	"./src/xspice/cmpp/writ_ifs.c"
-	# "./src/xspice/icm/dlmain.c"
-)
+if (NGSPICE_ENABLE_XSPICE)
+	message (STATUS "NGSPICE_ENABLE_XSPICE is ON")
+	add_library(ngspice-xspice
+		"./src/xspice/enh/enh.c"
+		"./src/xspice/enh/enhtrans.c"
+		"./src/xspice/mif/mif.c"
+		"./src/xspice/mif/mif_inp2.c"
+		"./src/xspice/mif/mifask.c"
+		"./src/xspice/mif/mifbindCSC.c"
+		"./src/xspice/mif/mifconvt.c"
+		"./src/xspice/mif/mifdelete.c"
+		"./src/xspice/mif/mifdestr.c"
+		"./src/xspice/mif/mifgetmod.c"
+		"./src/xspice/mif/mifgetvalue.c"
+		"./src/xspice/mif/mifload.c"
+		"./src/xspice/mif/mifmask.c"
+		"./src/xspice/mif/mifmdelete.c"
+		"./src/xspice/mif/mifmpara.c"
+		"./src/xspice/mif/mifsetup.c"
+		"./src/xspice/mif/miftrunc.c"
+		"./src/xspice/mif/mifutil.c"
+		"./src/xspice/cm/cm.c"
+		"./src/xspice/cm/cmevt.c"
+		"./src/xspice/cm/cmexport.c"
+		"./src/xspice/cm/cmmeters.c"
+		"./src/xspice/cm/cmutil.c"
+		"./src/xspice/evt/evtaccept.c"
+		"./src/xspice/evt/evtbackup.c"
+		"./src/xspice/evt/evtcall_hybrids.c"
+		"./src/xspice/evt/evtcheck_nodes.c"
+		"./src/xspice/evt/evtdeque.c"
+		"./src/xspice/evt/evtdest.c"
+		"./src/xspice/evt/evtdump.c"
+		"./src/xspice/evt/evtinit.c"
+		"./src/xspice/evt/evtiter.c"
+		"./src/xspice/evt/evtload.c"
+		"./src/xspice/evt/evtnext_time.c"
+		"./src/xspice/evt/evtnode_copy.c"
+		"./src/xspice/evt/evtop.c"
+		"./src/xspice/evt/evtplot.c"
+		"./src/xspice/evt/evtprint.c"
+		"./src/xspice/evt/evtqueue.c"
+		"./src/xspice/evt/evtsetup.c"
+		"./src/xspice/evt/evtshared.c"
+		"./src/xspice/evt/evttermi.c"
+		"./src/xspice/ipc/ipc.c"
+		"./src/xspice/ipc/ipcaegis.c"
+		"./src/xspice/ipc/ipcsockets.c"
+		"./src/xspice/ipc/ipcstdio.c"
+		"./src/xspice/ipc/ipctiein.c"
+		"./src/xspice/idn/idndig.c"
+		"./src/xspice/cmpp/file_buffer.c"
+		"./src/xspice/cmpp/ifs_lex.c"
+		"./src/xspice/cmpp/ifs_yacc.c"
+		"./src/xspice/cmpp/main.c"
+		"./src/xspice/cmpp/mod_lex.c"
+		"./src/xspice/cmpp/mod_yacc.c"
+		"./src/xspice/cmpp/pp_ifs.c"
+		"./src/xspice/cmpp/pp_lst.c"
+		"./src/xspice/cmpp/pp_mod.c"
+		"./src/xspice/cmpp/read_ifs.c"
+		"./src/xspice/cmpp/util.c"
+		"./src/xspice/cmpp/writ_ifs.c"
+		# "./src/xspice/icm/dlmain.c"
+	)
 
-target_include_directories(ngspice-xspice PUBLIC
-	"./src/include/ngspice"
-	"./src/spicelib/devices/"
-)
+	if(CMAKE_SYSTEM_NAME MATCHES "Windows")
+		target_compile_definitions(ngspice-xspice PRIVATE
+			YY_NO_UNISTD_H
+		)
+	endif()
+	
+	target_include_directories(ngspice-xspice PUBLIC
+		"./src/include/ngspice"
+		"./src/spicelib/devices/"
+	)
+endif()
 
 # --- Spicelib
 add_library(ngspice-spicelib
@@ -1613,11 +1624,14 @@ target_include_directories(ngspice-spicelib PUBLIC
 
 # -------- Shared spice -----
 target_link_libraries(ngspice-spicelib PRIVATE 
-	ngspice-maths 
-	ngspice-xspice
+	ngspice-maths
 )
+if (NGSPICE_ENABLE_XSPICE)
+	target_link_libraries(ngspice-spicelib PRIVATE
+		ngspice-xspice
+	)
+endif()
 add_library(ngspice
-	# "./src/nghelp.c"
 	"./src/conf.c"
 	"./src/sharedspice.c"	
 )
