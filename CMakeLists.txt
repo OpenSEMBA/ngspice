@@ -149,9 +149,7 @@ if(NGSPICE_ENABLE_KLU)
 	target_include_directories(ngspice-maths-klu PRIVATE
 		"./src/include/ngspice/"
 	)
-	# target_compile_definitions(ngspice-maths-klu PRIVATE
-	# 	-DCOMPLEX
-	# )
+
 	target_link_libraries(ngspice-maths-klu PRIVATE
 		ngspice-maths-sparse
 		ngspice-maths-klu-float
