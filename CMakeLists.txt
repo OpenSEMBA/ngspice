@@ -235,7 +235,6 @@ if (NGSPICE_ENABLE_XSPICE)
 		"./src/xspice/cmpp/read_ifs.c"
 		"./src/xspice/cmpp/util.c"
 		"./src/xspice/cmpp/writ_ifs.c"
-		# "./src/xspice/icm/dlmain.c"
 	)
 
 	if(CMAKE_SYSTEM_NAME MATCHES "Windows")
@@ -247,7 +246,10 @@ if (NGSPICE_ENABLE_XSPICE)
 	target_include_directories(ngspice-xspice PUBLIC
 		"./src/include/ngspice"
 		"./src/spicelib/devices/"
+		"./src/xspice/spice2poly/"
+		"./src/xspice/icm/spice2poly/"
 	)
+
 endif()
 
 # --- Spicelib
@@ -1629,6 +1631,7 @@ target_link_libraries(ngspice-spicelib PRIVATE
 if (NGSPICE_ENABLE_XSPICE)
 	target_link_libraries(ngspice-spicelib PRIVATE
 		ngspice-xspice
+		# spice2poly
 	)
 endif()
 add_library(ngspice
