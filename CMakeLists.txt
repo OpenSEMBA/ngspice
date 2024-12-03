@@ -12,7 +12,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(NGSPICE_ENABLE_KLU "Enables KLU compilation in maths" ON)
 option(NGSPICE_ENABLE_XSPICE "Enables xspice" ON)
 option(NGSPICE_ENABLE_PSS_ANALYSIS "Enable PSS analysis" OFF)
-option(NGSPICE_COMPILE_MAIN "Enables standalone executable compilaiton" OFF)
+option(NGSPICE_ENABLE_TESTS "Enables tests" OFF)
+option(NGSPICE_ENABLE_MAIN_COMPILATION "Enables standalone executable compilaiton" OFF)
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
 	add_definitions(-DHAVE_STRINGS_H=1)
@@ -1646,8 +1647,8 @@ add_library(ngspice
 target_link_libraries(ngspice PRIVATE ngspice-spicelib)
 
 # ------- ngspice executable
-if (NGSPICE_COMPILE_MAIN)
-	message(STATUS "NGSPICE_COMPILE_MAIN is ON")
+if (NGSPICE_ENABLE_MAIN_COMPILATION)
+	message(STATUS "NGSPICE_ENABLE_MAIN_COMPILATION is ON")
 	add_executable(ngspice_main
 		"./src/main.c"
 	)
@@ -1655,11 +1656,10 @@ if (NGSPICE_COMPILE_MAIN)
 endif()
 
 # ------- Tests
-if (NGSPICE_ENABLE_TESTS)
-	# TODO
-	# "./src/maths/cmaths/test_cx_ph.c"
-	# "./src/maths/cmaths/test_cx_mag.c"
-	# "./src/maths/cmaths/test_cx_j.c"
-	# "./src/maths/cmaths/test_cx_cph.c"
-	# "./src/maths/misc/test_accuracy.c"
-endif()
+# if (NGSPICE_ENABLE_TESTS)
+# 	# "./src/maths/cmaths/test_cx_ph.c"
+# 	# "./src/maths/cmaths/test_cx_mag.c"
+# 	# "./src/maths/cmaths/test_cx_j.c"
+# 	# "./src/maths/cmaths/test_cx_cph.c"
+# 	# "./src/maths/misc/test_accuracy.c"
+# endif()
