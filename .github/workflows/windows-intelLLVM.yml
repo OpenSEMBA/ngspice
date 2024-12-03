@@ -33,5 +33,8 @@ jobs:
     - name: CMake build
       shell: bash
       run: |
-        cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=${{matrix.optimization-type}} CC=icx
+        cmake -S . -B build -GNinja \
+          -DCMAKE_BUILD_TYPE=${{matrix.optimization-type}} \
+          -DCMAKE_C_COMPILER=icx \
+          -DCMAKE_CXX_COMPILER=icx 
         cmake --build build -j

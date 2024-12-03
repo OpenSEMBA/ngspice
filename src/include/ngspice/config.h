@@ -439,7 +439,7 @@
 /* #undef IPC_DEBUG_VIA_STDIO */
 
 /* Client-Server via socket. */
-#define IPC_UNIX_SOCKETS 1
+// #define IPC_UNIX_SOCKETS 1
 
 /* Define if we want KLU linear systems solver */
 #define KLU 1
