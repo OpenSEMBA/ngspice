@@ -1,4 +1,4 @@
-name: windows-intelLLVM
+name: windows-msvc
 
 on:     
   pull_request:
