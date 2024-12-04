@@ -17,7 +17,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(NGSPICE_ENABLE_KLU "Enables KLU compilation in maths" ON)
 option(NGSPICE_ENABLE_XSPICE "Enables xspice" ON)
 option(NGSPICE_ENABLE_PSS_ANALYSIS "Enable PSS analysis" OFF)
-option(NGSPICE_COMPILE_MAIN "Enables standalone executable compilaiton" OFF)
+option(NGSPICE_ENABLE_TESTS "Enables tests" OFF)
+option(NGSPICE_ENABLE_MAIN_COMPILATION "Enables standalone executable compilaiton" OFF)
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
 	add_definitions(-DHAVE_STRINGS_H=1)
@@ -37,6 +38,11 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
 	add_definitions(-DHAVE_TDESTROY=1)
 	add_definitions(-DHAVE_TSEARCH=1)
 	add_definitions(-DHAVE_SYS_IOCTL_H=1)
+	add_definitions(-DIPC_UNIX_SOCKETS=1)
+elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
+	add_definitions(-DIPC_DEBUG_VIA_STDIO=1)
+else()
+	message(FATAL_ERROR "Unrecognized system name")
 endif()
 
 include_directories(
@@ -1119,20 +1125,20 @@ add_library(ngspice-spicelib
 	"./src/spicelib/devices/nbjt2/nbt2set.c"
 	"./src/spicelib/devices/nbjt2/nbt2temp.c"
 	"./src/spicelib/devices/nbjt2/nbt2trun.c"
-	"./src/spicelib/devices/ndev/ndev.c"
-	"./src/spicelib/devices/ndev/ndevaccept.c"
-	"./src/spicelib/devices/ndev/ndevacld.c"
-	"./src/spicelib/devices/ndev/ndevask.c"
-	"./src/spicelib/devices/ndev/ndevdump.c"
-	"./src/spicelib/devices/ndev/ndevinit.c"
-	"./src/spicelib/devices/ndev/ndevload.c"
-	"./src/spicelib/devices/ndev/ndevmdel.c"
-	"./src/spicelib/devices/ndev/ndevmpar.c"
-	"./src/spicelib/devices/ndev/ndevparm.c"
-	"./src/spicelib/devices/ndev/ndevpzld.c"
-	"./src/spicelib/devices/ndev/ndevset.c"
-	"./src/spicelib/devices/ndev/ndevtemp.c"
-	"./src/spicelib/devices/ndev/ndevtrun.c"
+	# "./src/spicelib/devices/ndev/ndev.c"
+	# "./src/spicelib/devices/ndev/ndevaccept.c"
+	# "./src/spicelib/devices/ndev/ndevacld.c"
+	# "./src/spicelib/devices/ndev/ndevask.c"
+	# "./src/spicelib/devices/ndev/ndevdump.c"
+	# "./src/spicelib/devices/ndev/ndevinit.c"
+	# "./src/spicelib/devices/ndev/ndevload.c"
+	# "./src/spicelib/devices/ndev/ndevmdel.c"
+	# "./src/spicelib/devices/ndev/ndevmpar.c"
+	# "./src/spicelib/devices/ndev/ndevparm.c"
+	# "./src/spicelib/devices/ndev/ndevpzld.c"
+	# "./src/spicelib/devices/ndev/ndevset.c"
+	# "./src/spicelib/devices/ndev/ndevtemp.c"
+	# "./src/spicelib/devices/ndev/ndevtrun.c"
 	"./src/spicelib/devices/numd/numd.c"
 	"./src/spicelib/devices/numd/numdacld.c"
 	"./src/spicelib/devices/numd/numdask.c"
@@ -1666,8 +1672,8 @@ add_library(ngspice
 target_link_libraries(ngspice PRIVATE ngspice-spicelib)
 
 # ------- ngspice executable
-if (NGSPICE_COMPILE_MAIN)
-	message(STATUS "NGSPICE_COMPILE_MAIN is ON")
+if (NGSPICE_ENABLE_MAIN_COMPILATION)
+	message(STATUS "NGSPICE_ENABLE_MAIN_COMPILATION is ON")
 	add_executable(ngspice_main
 		"./src/main.c"
 	)
@@ -1675,11 +1681,10 @@ if (NGSPICE_COMPILE_MAIN)
 endif()
 
 # ------- Tests
-if (NGSPICE_ENABLE_TESTS)
-	# TODO
-	# "./src/maths/cmaths/test_cx_ph.c"
-	# "./src/maths/cmaths/test_cx_mag.c"
-	# "./src/maths/cmaths/test_cx_j.c"
-	# "./src/maths/cmaths/test_cx_cph.c"
-	# "./src/maths/misc/test_accuracy.c"
-endif()
+# if (NGSPICE_ENABLE_TESTS)
+# 	# "./src/maths/cmaths/test_cx_ph.c"
+# 	# "./src/maths/cmaths/test_cx_mag.c"
+# 	# "./src/maths/cmaths/test_cx_j.c"
+# 	# "./src/maths/cmaths/test_cx_cph.c"
+# 	# "./src/maths/misc/test_accuracy.c"
+# endif()
