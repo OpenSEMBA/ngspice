@@ -9,6 +9,11 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+# set(NGSPICEBINDIR, ../bin)
+# set(NGSPICEDATADIR, ./../../src_mtln/spinit/)
+# set(HAS_RELPATH,1)
+
+
 option(NGSPICE_ENABLE_KLU "Enables KLU compilation in maths" ON)
 option(NGSPICE_ENABLE_XSPICE "Enables xspice" ON)
 option(NGSPICE_ENABLE_PSS_ANALYSIS "Enable PSS analysis" OFF)
@@ -223,19 +228,38 @@ if (NGSPICE_ENABLE_XSPICE)
 		"./src/xspice/ipc/ipcstdio.c"
 		"./src/xspice/ipc/ipctiein.c"
 		"./src/xspice/idn/idndig.c"
-		"./src/xspice/cmpp/file_buffer.c"
-		"./src/xspice/cmpp/ifs_lex.c"
-		"./src/xspice/cmpp/ifs_yacc.c"
-		"./src/xspice/cmpp/main.c"
-		"./src/xspice/cmpp/mod_lex.c"
-		"./src/xspice/cmpp/mod_yacc.c"
-		"./src/xspice/cmpp/pp_ifs.c"
-		"./src/xspice/cmpp/pp_lst.c"
-		"./src/xspice/cmpp/pp_mod.c"
-		"./src/xspice/cmpp/read_ifs.c"
-		"./src/xspice/cmpp/util.c"
-		"./src/xspice/cmpp/writ_ifs.c"
+		# "./src/xspice/cmpp/file_buffer.c"
+		# "./src/xspice/cmpp/ifs_lex.c"
+		# "./src/xspice/cmpp/ifs_yacc.c"
+		# "./src/xspice/cmpp/cmpp_main.c"
+		# "./src/xspice/cmpp/mod_lex.c"
+		# "./src/xspice/cmpp/mod_yacc.c"
+		# "./src/xspice/cmpp/pp_ifs.c"
+		# "./src/xspice/cmpp/pp_lst.c"
+		# "./src/xspice/cmpp/pp_mod.c"
+		# "./src/xspice/cmpp/read_ifs.c"
+		# "./src/xspice/cmpp/util.c"
+		# "./src/xspice/cmpp/writ_ifs.c"
 	)
+
+	# add_executable(main
+	# 	"./src/xspice/cmpp/cmpp_main.c"
+	# 	"./src/xspice/cmpp/cmpp.h"
+	# 	"./src/xspice/cmpp/file_buffer.c"
+	# 	"./src/xspice/cmpp/ifs_lex.c"
+	# 	"./src/xspice/cmpp/ifs_yacc.c"
+	# 	"./src/xspice/cmpp/cmpp_main.c"
+	# 	"./src/xspice/cmpp/mod_lex.c"
+	# 	"./src/xspice/cmpp/mod_yacc.c"
+	# 	"./src/xspice/cmpp/pp_ifs.c"
+	# 	"./src/xspice/cmpp/pp_lst.c"
+	# 	"./src/xspice/cmpp/pp_mod.c"
+	# 	"./src/xspice/cmpp/read_ifs.c"
+	# 	"./src/xspice/cmpp/util.c"
+	# 	"./src/xspice/cmpp/writ_ifs.c"
+	# )
+	
+	# target_link_libraries(main)
 
 	if(CMAKE_SYSTEM_NAME MATCHES "Windows")
 		target_compile_definitions(ngspice-xspice PRIVATE
@@ -1631,6 +1655,7 @@ target_link_libraries(ngspice-spicelib PRIVATE
 if (NGSPICE_ENABLE_XSPICE)
 	target_link_libraries(ngspice-spicelib PRIVATE
 		ngspice-xspice
+		# ngspice-xspice-cmpp
 		# spice2poly
 	)
 endif()

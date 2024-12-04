@@ -49,6 +49,8 @@
 /* define to specify MS Windows executable with simple GUI */
 /* #undef HAS_WINGUI */
 
+#define HAS_RELPATH 0
+
 /* Define to 1 if you have the `access' function. */
 #define HAVE_ACCESS 1
 
@@ -458,6 +460,7 @@
 
 /* Compile with debug info */
 /* #undef NGDEBUG */
+#define NGDEBUG 1
 
 /* Define the directory for executables */
 #define NGSPICEBINDIR "/usr/bin"
@@ -467,6 +470,7 @@
 
 /* Define the directory for architecture independent data files */
 #define NGSPICEDATADIR "/usr/share/ngspice"
+// #define NGSPICEDATADIR "../share/ngspice"
 
 /* Define if we want NOBYPASS */
 /* #undef NOBYPASS */
