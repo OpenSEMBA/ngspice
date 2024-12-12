@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.15)
 
-message(STATUS "Creating build system for ngspice")
+message(STATUS "Creating build system for ngspice in " ${CMAKE_SYSTEM_NAME})
 
 project(ngspice)
 enable_language(C CXX)
@@ -8,11 +8,6 @@ enable_language(C CXX)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
-# set(NGSPICEBINDIR, ../bin)
-# set(NGSPICEDATADIR, ./../../src_mtln/spinit/)
-# set(HAS_RELPATH,1)
-
 
 option(NGSPICE_ENABLE_KLU "Enables KLU compilation in maths" ON)
 option(NGSPICE_ENABLE_XSPICE "Enables xspice" ON)
@@ -283,7 +278,9 @@ if (NGSPICE_ENABLE_XSPICE)
 endif()
 
 # --- Spicelib
-add_library(ngspice-spicelib
+
+set(spicelib_SOURCES)
+list(APPEND spicelib_SOURCES
 	"./src/ngspice.c"
 	"./src/ciderlib/input/bdryset.c"
 	"./src/ciderlib/input/boundary.c"
@@ -1624,7 +1621,6 @@ add_library(ngspice-spicelib
 	"./src/misc/string.c"
 	"./src/misc/tilde.c"
 	"./src/misc/util.c"
-	# "./src/misc/win_time.c"
 	"./src/misc/wlist.c"
 	# "./src/osdi/osdiacld.c"
 	# "./src/osdi/osdicallbacks.c"
@@ -1637,6 +1633,14 @@ add_library(ngspice-spicelib
 	# "./src/osdi/osdisetup.c"
 	# "./src/osdi/osditrunc.c"
 )
+
+if(CMAKE_SYSTEM_NAME MATCHES "Windows")	
+	list(APPEND spicelib_SOURCES
+		"./src/misc/win_time.c"
+	)
+endif()
+
+add_library(ngspice-spicelib ${spicelib_SOURCES})
 
 
 if (NGSPICE_ENABLE_PSS_ANALYSIS)
@@ -1665,10 +1669,21 @@ if (NGSPICE_ENABLE_XSPICE)
 		# spice2poly
 	)
 endif()
-add_library(ngspice
-	"./src/conf.c"
-	"./src/sharedspice.c"	
-)
+
+if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+	add_library(ngspice 
+		"./src/conf.c"
+		"./src/sharedspice.c"	
+	)
+elseif(CMAKE_SYSTEM_NAME MATCHES "Windows")
+	add_library(ngspice SHARED
+		"./src/conf.c"
+		"./src/sharedspice.c"	
+	)
+else()
+	message(FATAL_ERROR "Unrecognized system name")
+endif()
+
 target_link_libraries(ngspice PRIVATE ngspice-spicelib)
 
 # ------- ngspice executable
