@@ -39,11 +39,11 @@ Makefile.in
 /ar-lib
 /ngspice.pc
 
-/src/frontend/parse-bison.*
-/src/spicelib/parser/inpptree-parser.*
+# /src/frontend/parse-bison.*k
+# /src/spicelib/parser/inpptree-parser.*
 
 /src/include/ngspice/config.h.in
-/src/include/ngspice/config.h
+# /src/include/ngspice/config.h
 /src/include/ngspice/stamp-h1
 
 /src/maths/cmaths/test_cx_cph
@@ -64,6 +64,7 @@ Makefile.in
 /src/ngspice.idx
 /src/spinit
 
+/build*
 /release*
 /debug*
 
@@ -80,10 +81,10 @@ Makefile.in
 **/*.vcxproj.user
 .vscode/
 
-src/frontend/parse-bison.c
-src/frontend/parse-bison.h
-src/spicelib/parser/inpptree-parser.c
-src/spicelib/parser/inpptree-parser.h
+# src/frontend/parse-bison.c
+# src/frontend/parse-bison.h
+# src/spicelib/parser/inpptree-parser.c
+# src/spicelib/parser/inpptree-parser.h
 # Visual Studio Code user options files
 .vscode/
 
