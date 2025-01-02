@@ -1,15 +1,15 @@
-name: ubuntu-intelLLVM
+name: windows-intelLLVM
 
 on:     
   pull_request:
     branches:
       - main
-      - dev 
+      - dev
 
 jobs:
 
   builds-and-tests:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     strategy:
       matrix: 
         optimization-type: ["Debug", "Release"]
@@ -25,9 +25,16 @@ jobs:
       id: setup-fortran
       with:
         compiler: intel
-        version: '2024.2'
+        version: '2024.0'
+
+    - name: Setup ninja
+      uses: seanmiddleditch/gha-setup-ninja@master
 
     - name: CMake build
+      shell: bash
       run: |
-        cmake -S . -B build -DCMAKE_BUILD_TYPE=${{matrix.optimization-type}}
+        cmake -S . -B build -GNinja \
+          -DCMAKE_BUILD_TYPE=${{matrix.optimization-type}} \
+          -DCMAKE_C_COMPILER=icx \
+          -DCMAKE_CXX_COMPILER=icx 
         cmake --build build -j

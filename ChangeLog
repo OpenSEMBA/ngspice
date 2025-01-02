@@ -4297,7 +4297,7 @@ kept only for historical reasons.
  * src/include/ngspice/cidersupt.h,
  * src/include/ngspice/cluster.h,
  * src/include/ngspice/compatmode.h,
- * src/include/ngspice/complex.h,
+ * src/include/ngspice/ngcomplex.h,
  * src/include/ngspice/cpstd.h,
  * src/include/ngspice/defines.h,
  * src/include/ngspice/dllitf.h,
@@ -4328,7 +4328,7 @@ kept only for historical reasons.
 
 2013-01-22  rlar <rlar>
  * src/frontend/com_measure2.h,
- * src/include/ngspice/complex.h,
+ * src/include/ngspice/ngcomplex.h,
  * src/include/ngspice/cpstd.h,
  * src/include/ngspice/defines.h,
  * src/include/ngspice/fteinput.h,
@@ -9899,7 +9899,7 @@ kept only for historical reasons.
    polish make maintainer-clean, make mrproper
 
 2012-02-07  Robert Larice
- * src/include/ngspice/complex.h :
+ * src/include/ngspice/ngcomplex.h :
    #4/4 finish the switch from ngcomplex* args to ngcomplex
 
 2012-02-07  Robert Larice
@@ -9922,7 +9922,7 @@ kept only for historical reasons.
  * src/frontend/plotting/plotcurv.c ,
  * src/frontend/plotting/plotit.c ,
  * src/frontend/plotting/xgraph.c ,
- * src/include/ngspice/complex.h ,
+ * src/include/ngspice/ngcomplex.h ,
  * src/maths/cmaths/cmath1.c ,
  * src/maths/cmaths/cmath2.c ,
  * src/maths/cmaths/cmath3.c ,
@@ -9935,7 +9935,7 @@ kept only for historical reasons.
 
 2012-02-07  Robert Larice
  * src/frontend/diff.c ,
- * src/include/ngspice/complex.h ,
+ * src/include/ngspice/ngcomplex.h ,
  * src/maths/cmaths/cmath1.c ,
  * src/maths/cmaths/cmath2.c ,
  * src/maths/cmaths/cmath3.c ,
@@ -9943,7 +9943,7 @@ kept only for historical reasons.
    #2/4 switch cph() and cmag() args from ngcomplex* to ngcomplex
 
 2012-02-07  Robert Larice
- * src/include/ngspice/complex.h :
+ * src/include/ngspice/ngcomplex.h :
    #1/4 drop cast (enable compiler type check)
 
 2012-02-07  Holger Vogt / Robert Larice

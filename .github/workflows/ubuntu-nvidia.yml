@@ -29,8 +29,5 @@ jobs:
       
     - name: Build application
       run: |
-        # export CC=nvcc
-        # export CXX=nvc++
-        # export FC=nvfortran
-        cmake -S . -B build -DCMAKE_BUILD_TYPE=${{matrix.optimization-type}} -DSEMBA_FDTD_ENABLE_HDF=NO
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=${{matrix.optimization-type}}
         cmake --build build -j      
