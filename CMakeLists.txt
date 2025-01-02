@@ -40,6 +40,13 @@ else()
 	message(FATAL_ERROR "Unrecognized system name")
 endif()
 
+if(CMAKE_C_COMPILER_ID MATCHES "^Intel")
+	if(CMAKE_SYSTEM_NAME MATCHES "Windows")
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Qiopenmp")
+	endif()
+endif()
+
+
 include_directories(
 	"src/"
 	"src/include/"
