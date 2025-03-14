@@ -874,7 +874,7 @@ cx_atanh(void* data, short int type, int length, int* newlength, short int* newt
         ngcomplex_t* cc = (ngcomplex_t*)data;
         int i;
         for (i = 0; i < length; i++) {
-#if (_MSC_VER < 1930)
+#if defined(_MSC_VER) && (_MSC_VER < 1930)
             _Dcomplex midin = _Cbuild(degtorad(realpart(cc[i])), degtorad(imagpart(cc[i])));
             _Dcomplex midout = catanh(midin);
 #else
