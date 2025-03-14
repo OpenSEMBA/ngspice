@@ -43,6 +43,10 @@ endif()
 if(CMAKE_C_COMPILER_ID MATCHES "^Intel")
 	if(CMAKE_SYSTEM_NAME MATCHES "Windows")
 		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Qiopenmp")
+		
+		# This prevents a compilation error happening due to visual studio headers being too strict.
+		# It can possibly can be removed in the future.
+		add_compile_definitions("$<$<COMPILE_LANGUAGE:C,CXX>:-D_ALLOW_COMPILER_AND_STL_VERSION_MISMATCH>")
 	endif()
 endif()
 
