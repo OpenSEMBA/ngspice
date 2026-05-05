@@ -889,6 +889,11 @@ cp_evloop(char *string)
                 if (x)
                     x = x->co_next;
             } while (x);
+            /* Free the executed top-level control structure chain.
+             * Without this, every command call accumulates struct control
+             * nodes (with their co_text wordlist copies) indefinitely. */
+            ctl_free(control[stackp]);
+            control[stackp] = cend[stackp] = NULL;
         }
         wl_free(freewl);
         if (string)
